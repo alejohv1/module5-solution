@@ -88,6 +88,9 @@ function buildAndShowHomeHTML (categories) {
       //Step 4
 
       insertHtml('#mainContent', homeHtmlToInsertIntoMainPage);
+      //potentially try this
+      //var mainContent = document.querySelector("#main-content");
+      //insertHtml(mainContent, homeHtmlToInsertIntoMainPage);
 
     },
     false); // False here because we are getting just regular HTML from the server, so no need to process JSON.
