@@ -19,13 +19,13 @@ var allCategoriesUrl =
 var categoriesTitleHtml = "snippets/categories-title-snippet.html";
 var categoryHtml = "snippets/category-snippet.html";
 var menuItemsUrl =
-  "https://coursera-jhu-default-rtdb.firebaseio.com/menu_items/.json?category="; //testing this edit per a 6month old discussion
+  "https://coursera-jhu-default-rtdb.firebaseio.com/menu_items/"; //testing this edit per a 6month old discussion
 var menuItemsTitleHtml = "snippets/menu-items-title.html";
 var menuItemHtml = "snippets/menu-item.html";
 
 // Convenience function for inserting innerHTML for 'select'
 var insertHtml = function (selector, html) {
-var targetElem = document.querySelector(selector);
+  var targetElem = document.querySelector(selector);
   targetElem.innerHTML = html;
 };
 
@@ -80,10 +80,10 @@ function buildAndShowHomeHTML (categories) {
     homeHtmlUrl,
     function (homeHtml) {
       //Step 2
-      var chosenCategory = chooseRandomCategory(categories);
+      var chosenCategoryShortName = chooseRandomCategory(categories);
 
       //Step 3
-      var homeHtmlToInsertIntoMainPage = homeHtml.replace('{{randomCategoryShortName}}', chosenCategory.short_name);
+      var = homeHtmlToInsertIntoMainPage = insertProperty(homeHtml, 'randomCategoryShortName', chosenCategoryShortName);
 
       //Step 4
 
