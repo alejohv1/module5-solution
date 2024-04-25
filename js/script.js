@@ -19,7 +19,7 @@ var allCategoriesUrl =
 var categoriesTitleHtml = "snippets/categories-title-snippet.html";
 var categoryHtml = "snippets/category-snippet.html";
 var menuItemsUrl =
-  "https://coursera-jhu-default-rtdb.firebaseio.com/menu_items/"; //testing this edit per a 6month old discussion
+  "https://coursera-jhu-default-rtdb.firebaseio.com/menu_items"; //This URL doesn't work, wonder if it's the issue
 var menuItemsTitleHtml = "snippets/menu-items-title.html";
 var menuItemHtml = "snippets/menu-item.html";
 
@@ -69,7 +69,7 @@ function (event) {
 // On first load, show home view
 showLoading("#main-content");
 $ajaxUtils.sendGetRequest(
-  allCategoriesUrl, buildAndShowHomeHTML, true); 
+  allCategoriesUrl, buildAndShowHomeHTML, true); //Step 1
 });
 
 // Builds HTML for the home page based on categories array returned from the server.
@@ -79,26 +79,27 @@ function buildAndShowHomeHTML (categories) {
   $ajaxUtils.sendGetRequest(
     homeHtmlUrl,
     function (homeHtml) {
-      //Step 2
+      //Step 2 This one sorta works - stops endless loop
       var chosenCategoryShortName = chooseRandomCategory(categories);
+      var chosenCategory = chooseRandomCategory(categories);
 
-      //Step 3
-      var homeHtmlToInsertIntoMainPage = insertProperty(homeHtml, 'randomCategoryShortName', chosenCategoryShortName);
+      //Step 3 Currently stopped the looping jumbo. Going to try doublequotes below
+      // var homeHtmlToInsertIntoMainPage = insertProperty(homeHtml, 'randomCategoryShortName', chosenCategoryShortName);
+        var homeHtmlToInsertIntoMainPage = insertProperty(homeHtml, "randomCategoryShortName", "'" + chosenCategoryShortName + "'");
 
       //Step 4
 
-      insertHtml('#mainContent', homeHtmlToInsertIntoMainPage);
+      insertHtml('#main-content',homeHtmlToInsertIntoMainPage);
       //potentially try this
       //var mainContent = document.querySelector("#main-content");
       //insertHtml(mainContent, homeHtmlToInsertIntoMainPage);
+      //Lecture 57 p3
+      //document.querySelector("#main-content")
+      //.innerHtml = chosenCategory.shortName;
 
     },
     false); // False here because we are getting just regular HTML from the server, so no need to process JSON.
 }
-
-
-
-
 
 /////////////////////////////Draft/////////////////////////////////////
 
@@ -113,7 +114,7 @@ function chooseRandomCategory (categories) {
 }
 
 
-// Load the menu categories view
+// Load the menu categories view / WORKING EXAMPLE
 dc.loadMenuCategories = function () {
   showLoading("#main-content");
   $ajaxUtils.sendGetRequest(
@@ -122,7 +123,7 @@ dc.loadMenuCategories = function () {
 };
 
 
-// Load the menu items view
+// Load the menu items view //NON WORKIN
 // 'categoryShort' is a short_name for a category
 dc.loadMenuItems = function (categoryShort) {
   showLoading("#main-content");
