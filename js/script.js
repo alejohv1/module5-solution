@@ -83,20 +83,17 @@ function buildAndShowHomeHTML (categories) {
     function (homeHtml) {
       //Step 2 This one sorta works - stops endless loop
       var chosenCategoryShortName = chooseRandomCategory(categories);
-      var chosenCategory = chooseRandomCategory(categories);
+      var chosenCategory = chooseRandomCategory(categories); 
 
-      //Step 3 Currently stopped the looping jumbo. Going to try doublequotes below
-      var homeHtmlToInsertIntoMainPage = insertProperty(homeHtml, 'randomCategoryShortName', chosenCategoryShortName);
-        // var homeHtmlToInsertIntoMainPage = insertProperty(homeHtml, "randomCategoryShortName", "'" + chosenCategoryShortName + "'");
+      //Step 3 
+      var homeHtmlToInsertIntoMainPage = "'" + chosenCategoryShortName.short_name + "'";
+      
 
       //Step 4
-
-      insertHtml('#main-content',homeHtmlToInsertIntoMainPage);
-      //potentially try this
-      //Lecture 57 p3
-      //document.querySelector("#main-content")
-      //.innerHtml = chosenCategory.shortName;
-
+      //potentially try this if after push 400 bad request
+      homeHtml = insertProperty(homeHtml, "randomCategoryShortName", homeHtmlToInsertIntoMainPage);
+      insertHtml("#main-content", homeHtml);
+      //
     },
     false); // False here because we are getting just regular HTML from the server, so no need to process JSON.
 }
